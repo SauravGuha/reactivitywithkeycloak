@@ -32,7 +32,7 @@ namespace Application.Commands.Activity
             var sameActivity = await activityReadService.GetAllAsync(query, cancellationToken);
             if(sameActivity.Any())
             {
-                throw new Exception("Activity with same title already exists.");
+                throw new ArgumentException("Activity with same title already exists.");
             }
             else
             {
@@ -44,7 +44,7 @@ namespace Application.Commands.Activity
                 }
                 else
                 {
-                    throw new Exception("Error while creating activity.");
+                    throw new NullReferenceException("Unable to create activity");
                 }
             }
         }
