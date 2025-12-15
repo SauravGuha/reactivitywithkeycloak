@@ -19,7 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{DB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{3FD56A0E-4AD4-4350-A2DA-28EAF862EFBD}"
 	ProjectSection(SolutionItems) = preProject
-		FrontEnd\client\.gitignore = FrontEnd\client\.gitignore
 		FrontEnd\client\eslint.config.js = FrontEnd\client\eslint.config.js
 		FrontEnd\client\index.html = FrontEnd\client\index.html
 		FrontEnd\client\package-lock.json = FrontEnd\client\package-lock.json
