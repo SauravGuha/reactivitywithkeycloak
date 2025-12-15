@@ -27,6 +27,16 @@ namespace Presentation
                 var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
             });
+            builder.Services.AddCors(options => {
+                var whiteListed = builder.Configuration.GetSection("CorsOrigins").Get<string[]>() ?? [];
+                options.AddDefaultPolicy(pb =>
+                {
+                    pb.AllowAnyHeader()
+                      .AllowAnyMethod()
+                      .AllowCredentials()
+                      .WithOrigins(whiteListed);
+                });
+            });
 
             builder.Services.AddApplicationServices();
             builder.Services.AddPersistence(builder.Configuration);
@@ -39,7 +49,7 @@ namespace Presentation
             }
 
             // Configure the HTTP request pipeline.
-
+            app.UseCors();
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
