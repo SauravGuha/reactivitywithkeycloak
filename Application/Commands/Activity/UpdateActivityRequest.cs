@@ -37,10 +37,9 @@ namespace Application.Commands.Activity
             }
             else
             {
-                var updatedActivity = activityMapper.MapToActivity(request.ActivityCommand);
-                updatedActivity.Id = activity.Id; // Preserve the original ID
-                await this.activityWriteRepository.UpdateAsync(updatedActivity, cancellationToken);
-                return this.activityMapper.MapToDto(updatedActivity);
+                activityMapper.UpdateActivityFromCommand(request.ActivityCommand, activity);
+                await this.activityWriteRepository.UpdateAsync(activity, cancellationToken);
+                return this.activityMapper.MapToDto(activity);
             }
         }
     }

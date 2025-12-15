@@ -15,5 +15,7 @@ namespace Application.Mapper.Activity
         public partial ActivityQuery MapToActivityQuery(ActivityCommand activityDto);
 
         public partial Domain.Models.Activity MapToActivity(ActivityCommand activityDto);
+
+        public partial void UpdateActivityFromCommand(ActivityCommand activityCommand, Domain.Models.Activity activity);
     }
 }

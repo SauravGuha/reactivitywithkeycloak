@@ -16,7 +16,7 @@ namespace Presentation.Controllers
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns> Returns a list of activities </returns>
-        [HttpGet(template:nameof(GetAllActivities))]
+        [HttpGet(template: nameof(GetAllActivities))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/json")]
         public async Task<IActionResult> GetAllActivities(CancellationToken cancellationToken)
@@ -35,6 +35,8 @@ namespace Presentation.Controllers
         /// <returns></returns>
         [HttpGet(template: nameof(GetActivityById))]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Produces("application/json")]
         public async Task<IActionResult> GetActivityById([FromQuery] Guid id, CancellationToken cancellationToken)
         {
@@ -54,8 +56,9 @@ namespace Presentation.Controllers
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns> Returns the created activity </returns>
-        [HttpPost(template:nameof(CreateActivity))]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Produces("application/json")]
         public async Task<IActionResult> CreateActivity([FromBody] ActivityCommand request,
             CancellationToken cancellationToken)
@@ -68,31 +71,48 @@ namespace Presentation.Controllers
             return Ok(result);
         }
 
-
         /// <summary>
         /// Updates an existing activity.
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        [HttpPut(template: nameof(UpdateActivity))]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Produces("application/json")]
-        public async Task<IActionResult> UpdateActivity([FromBody] UpdateActivityRequest request,
+        public async Task<IActionResult> UpdateActivity([FromQuery] Guid id, [FromBody] ActivityCommand request,
             CancellationToken cancellationToken)
         {
-            if (request.Id == Guid.Empty)
+            if (id == Guid.Empty)
             {
                 return BadRequest("Activity ID is required for update.");
             }
             var updateActivityRequest = new UpdateActivityRequest
             {
-                Id = request.Id,
-                ActivityCommand = request.ActivityCommand
+                Id = id,
+                ActivityCommand = request
             };
             var result = await this.Mediator.Send(updateActivityRequest, cancellationToken);
             return Ok(result);
         }
 
+
+        /// <summary>
+        /// Deletes an activity by its ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteActivity(Guid id, CancellationToken cancellationToken)
+        {
+            await this.Mediator.Send(new DeleteActivityRequest { Id = id }, cancellationToken);
+            return NoContent();
+
+        }
     }
 }
