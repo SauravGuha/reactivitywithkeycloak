@@ -15,21 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "Presentation\Presentation.csproj", "{990D3CC7-886B-41FF-A9A3-F1BA5A3A2483}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{DB5575C0-A250-4FD3-B9EA-24310DBE1D81}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{3FD56A0E-4AD4-4350-A2DA-28EAF862EFBD}"
-	ProjectSection(SolutionItems) = preProject
-		FrontEnd\client\eslint.config.js = FrontEnd\client\eslint.config.js
-		FrontEnd\client\index.html = FrontEnd\client\index.html
-		FrontEnd\client\package-lock.json = FrontEnd\client\package-lock.json
-		FrontEnd\client\package.json = FrontEnd\client\package.json
-		FrontEnd\client\README.md = FrontEnd\client\README.md
-		FrontEnd\client\tsconfig.app.json = FrontEnd\client\tsconfig.app.json
-		FrontEnd\client\tsconfig.json = FrontEnd\client\tsconfig.json
-		FrontEnd\client\tsconfig.node.json = FrontEnd\client\tsconfig.node.json
-		FrontEnd\client\vite.config.ts = FrontEnd\client\vite.config.ts
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,7 +51,6 @@ Global
 		{BAA955E0-D3C2-45D1-96BE-E98F9F544338} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{587F1D2E-38AC-44BD-B747-117E764C0870} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{990D3CC7-886B-41FF-A9A3-F1BA5A3A2483} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{3FD56A0E-4AD4-4350-A2DA-28EAF862EFBD} = {DB5575C0-A250-4FD3-B9EA-24310DBE1D81}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64515A4F-0CE6-4879-B941-AB4D86E94133}
