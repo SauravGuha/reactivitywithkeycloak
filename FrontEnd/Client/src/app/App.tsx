@@ -1,8 +1,8 @@
 import { Container, CssBaseline } from "@mui/material"
 import Navbar from "./layout/Navbar"
 import { useState } from "react"
-import { LoadingContext } from "../hooks/appContext";
-import Dashboard from "../features/activity/DashBoard";
+import { LoadingContext } from "../hooks/appContextHooks";
+import { Outlet } from "react-router-dom";
 
 
 function App() {
@@ -14,8 +14,8 @@ function App() {
       <LoadingContext.Provider value={{ isLoading, setLoader: (value: boolean) => setIsLoading(value) }}>
         <CssBaseline />
         <Navbar />
-        <Container maxWidth='xl' sx={{ marginTop: 10 }}>
-          <Dashboard />
+        <Container maxWidth={false} sx={{ marginTop: 9, background: 'aliceblue' }}>
+          <Outlet />
         </Container>
       </LoadingContext.Provider>
     </>
