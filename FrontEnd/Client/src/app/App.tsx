@@ -1,26 +1,23 @@
 import { Container, CssBaseline } from "@mui/material"
 import Navbar from "./layout/Navbar"
-import { useEffect, useState } from "react"
-import { getAllActivities } from "../library/reactivityapi";
-import type { Activity } from "../types/activityType";
+import { useState } from "react"
+import { LoadingContext } from "../hooks/appContext";
+import Dashboard from "../features/activity/DashBoard";
 
 
 function App() {
 
-  const [activities, setActivities] = useState<Activity[]>([]);
-
-  useEffect(() => {
-    getAllActivities()
-      .then(response => setActivities(response));
-  }, []);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
-      <CssBaseline />
-      <Navbar />
-      <Container maxWidth='xl' sx={{ marginTop: 10 }}>
-        {activities.map(a => <>{a.category}</>)}
-      </Container>
+      <LoadingContext.Provider value={{ isLoading, setLoader: (value: boolean) => setIsLoading(value) }}>
+        <CssBaseline />
+        <Navbar />
+        <Container maxWidth='xl' sx={{ marginTop: 10 }}>
+          <Dashboard />
+        </Container>
+      </LoadingContext.Provider>
     </>
   )
 }

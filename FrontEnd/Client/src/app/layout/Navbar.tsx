@@ -1,8 +1,10 @@
 import { Group } from "@mui/icons-material";
-import { AppBar, Box, Container, MenuItem, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, CircularProgress, Container, MenuItem, Toolbar, Typography } from "@mui/material";
+import { useIsLoading } from "../../hooks/appContext";
 
 
 export default function Navbar() {
+    const { isLoading } = useIsLoading();
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="fixed">
@@ -12,6 +14,7 @@ export default function Navbar() {
                             <MenuItem sx={{ display: 'flex', gap: 2 }}>
                                 <Group fontSize="large" />
                                 <Typography variant="h4" fontWeight='bold'>Reactivity</Typography>
+                                <CircularProgress sx={{ display: isLoading ? "inline-flex" : "none" }} color="success" />
                             </MenuItem>
                         </Box>
                         <Box sx={{ display: 'flex', gap: 2 }}>
