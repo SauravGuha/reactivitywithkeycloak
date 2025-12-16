@@ -17,7 +17,8 @@ namespace Presentation
             // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen(options => { 
+            builder.Services.AddSwaggerGen(options =>
+            {
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
                     Title = "Reactivity App API",
@@ -27,7 +28,8 @@ namespace Presentation
                 var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
             });
-            builder.Services.AddCors(options => {
+            builder.Services.AddCors(options =>
+            {
                 var whiteListed = builder.Configuration.GetSection("CorsOrigins").Get<string[]>() ?? [];
                 options.AddDefaultPolicy(pb =>
                 {
@@ -50,7 +52,8 @@ namespace Presentation
 
             // Configure the HTTP request pipeline.
             app.UseCors();
-            app.UseHttpsRedirection();
+            if (!app.Environment.IsDevelopment())
+                app.UseHttpsRedirection();
 
             app.UseAuthorization();
 

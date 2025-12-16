@@ -18,8 +18,8 @@ function App() {
     <>
       <CssBaseline />
       <Navbar />
-      <Container maxWidth='xl' sx={{ marginTop: 3 }}>
-        {activities.map(a => a.category + a.title)}
+      <Container maxWidth='xl' sx={{ marginTop: 10 }}>
+        {activities.map(a => <>{a.category}</>)}
       </Container>
     </>
   )
