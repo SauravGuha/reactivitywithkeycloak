@@ -8,7 +8,7 @@ function App() {
     <>
       <CssBaseline />
       <Navbar />
-      <Container sx={{marginTop:1}}>
+      <Container maxWidth='xl' sx={{ marginTop: 3 }}>
         hello
       </Container>
     </>
