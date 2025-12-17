@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../features/home/Home";
-import Dashboard from "../features/activity/dashboard/DashBoard";
 import App from "./App";
+import DashBoard from "../features/activity/dashboard/DashBoard";
 
 
 export const appRouter = createBrowserRouter([
@@ -10,12 +9,8 @@ export const appRouter = createBrowserRouter([
         element: <App />,
         children: [
             {
-                path: '',
-                element: <Home />
-            },
-            {
                 path: '/activities',
-                element: <Dashboard />
+                element: <DashBoard />
             }
         ]
     }
