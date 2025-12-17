@@ -23,12 +23,13 @@ instance.interceptors.request.use(async value => {
 
 const getAllActivities = async function () {
     const result = await instance.get<Activity[]>("/api/Activity/GetAllActivities");
-    return result.data;
+    return result.data.map(a => { return { ...a, eventDate: a.eventDate + 'Z' }; });
 }
 
 const getById = async function (id: string) {
     const result = await instance.get<Activity>(`/api/activity/getactivitybyid?id=${id}`);
-    return result.data;
+    const { data } = result;
+    return { ...data, eventDate: data.eventDate + 'Z' };
 }
 
 const createActivity = async function (activity: Activity) {

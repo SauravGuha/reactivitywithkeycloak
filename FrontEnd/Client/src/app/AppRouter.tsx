@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import DashBoard from "../features/activity/dashboard/DashBoard";
+import ActivityDetailsPage from "../features/activity/details/ActivityDetailsPage";
+import ActivityForm from "../features/activity/form/ActivityForm";
 
 
 export const appRouter = createBrowserRouter([
@@ -11,6 +13,14 @@ export const appRouter = createBrowserRouter([
             {
                 path: '/activities',
                 element: <DashBoard />
+            },
+            {
+                path: '/activity/:id',
+                element: <ActivityDetailsPage />
+            },
+            {
+                path: '/manage/:id',
+                element: <ActivityForm />
             }
         ]
     }

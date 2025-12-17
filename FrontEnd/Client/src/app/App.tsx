@@ -1,4 +1,4 @@
-import { Container, CssBaseline } from "@mui/material"
+import { Box, Container, CssBaseline } from "@mui/material"
 import Navbar from "./layout/Navbar"
 import { useState } from "react"
 import { LoadingContext } from "../hooks/appContextHooks";
@@ -12,18 +12,18 @@ function App() {
   const { pathname } = useLocation();
 
   return (
-    <>
+    <Box sx={{ bgcolor: '#eeeeee', minHeight: '100vh' }}>
+      <CssBaseline />
       {pathname == '/'
         ? <Home />
         : <LoadingContext.Provider value={{ isLoading, setLoader: (value: boolean) => setIsLoading(value) }}>
-          <CssBaseline />
           <Navbar />
-          <Container maxWidth={false} sx={{ marginTop: 9, background: 'aliceblue' }}>
+          <Container maxWidth={false} sx={{ marginTop: 9 }}>
             <Outlet />
           </Container>
         </LoadingContext.Provider>
       }
-    </>
+    </Box>
   )
 }
 

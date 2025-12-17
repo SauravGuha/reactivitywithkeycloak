@@ -1,7 +1,8 @@
 
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import ActivityCard from "./ActivityCard";
 import useActivities from "../../../hooks/activityQueryHooks";
+import ActivityFilters from "./ActivityFilters";
 
 export default function DashBoard() {
 
@@ -13,9 +14,14 @@ export default function DashBoard() {
         <>
             <Grid container spacing={2}>
                 <Grid size={8}>
-                    {activities
-                        ? activities.map(a => <ActivityCard key={a.id} activity={a} />)
-                        : "Not activity found"}
+                    <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                        {activities
+                            ? activities.map(a => <ActivityCard key={a.id} activity={a} />)
+                            : "Not activity found"}
+                    </Box>
+                </Grid>
+                <Grid size={4}>
+                    <ActivityFilters />
                 </Grid>
             </Grid>
         </>
