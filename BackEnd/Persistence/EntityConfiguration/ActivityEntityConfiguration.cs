@@ -41,6 +41,9 @@ namespace Persistence.EntityConfiguration
             builder.Property(a => a.Longitude)
                 .IsRequired()
                 .HasColumnType("bigint");
+
+            builder.Property(a => a.IsCancelled)
+                .IsRequired();
         }
     }
 }

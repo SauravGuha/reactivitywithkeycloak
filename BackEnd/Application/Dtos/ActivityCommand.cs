@@ -14,5 +14,7 @@ namespace Application.Dtos
         public required long Latitude { get; set; }
 
         public required long Longitude { get; set; }
+
+        public required bool IsCancelled { get; set; }
     }
 }

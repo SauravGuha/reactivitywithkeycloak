@@ -25,7 +25,8 @@ namespace Persistence.Data
                         City = "London",
                         Venue = "Pub",
                         Latitude = 51,
-                        Longitude = 0
+                        Longitude = 0,
+                        IsCancelled = false
                     },
                     new Domain.Models.Activity
                     {
@@ -36,7 +37,8 @@ namespace Persistence.Data
                         City = "Paris",
                         Venue = "Louvre",
                         Latitude = 48,
-                        Longitude = 2
+                        Longitude = 2,
+                        IsCancelled = false
                     },
                     new Domain.Models.Activity
                     {
@@ -47,7 +49,8 @@ namespace Persistence.Data
                         City = "London",
                         Venue = "Natural History Museum",
                         Latitude = 51,
-                        Longitude = 0
+                        Longitude = 0,
+                        IsCancelled = false
                     },
                     new Domain.Models.Activity
                     {
@@ -58,7 +61,8 @@ namespace Persistence.Data
                         City = "London",
                         Venue = "Cinema",
                         Latitude = 51,
-                        Longitude = 0
+                        Longitude = 0,
+                        IsCancelled = false
                     },
                     new Domain.Models.Activity
                     {
@@ -69,7 +73,8 @@ namespace Persistence.Data
                         City = "London",
                         Venue = "Restaurant",
                         Latitude = 51,
-                        Longitude = 0
+                        Longitude = 0,
+                        IsCancelled = false
                     },
                     new Domain.Models.Activity
                     {
@@ -80,7 +85,8 @@ namespace Persistence.Data
                         City = "London",
                         Venue = "Another pub",
                         Latitude = 51,
-                        Longitude = 0
+                        Longitude = 0,
+                        IsCancelled = false
                     },
                     new Domain.Models.Activity
                     {
@@ -91,7 +97,8 @@ namespace Persistence.Data
                         City = "London",
                         Venue = "O2 Arena",
                         Latitude = 51,
-                        Longitude = 0
+                        Longitude = 0,
+                        IsCancelled = false
                     },
                     new Domain.Models.Activity
                     {
@@ -102,7 +109,8 @@ namespace Persistence.Data
                         City = "London",
                         Venue = "Somewhere on the Thames",
                         Latitude = 51,
-                        Longitude = 0
+                        Longitude = 0,
+                        IsCancelled = false
                     },
                     new Domain.Models.Activity
                     {
@@ -113,7 +121,8 @@ namespace Persistence.Data
                         City = "London",
                         Venue = "Cinema",
                         Latitude = 51,
-                        Longitude = 0
+                        Longitude = 0,
+                        IsCancelled = false
                     },
                 });
 
