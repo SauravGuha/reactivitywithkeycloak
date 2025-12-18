@@ -1,4 +1,4 @@
-import { Box, Button, MenuItem, Paper, TextField, Typography } from "@mui/material";
+import { Box, Button, Checkbox, FormControlLabel, MenuItem, Paper, TextField, Typography } from "@mui/material";
 import type { FormEvent } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useActivities from "../../../hooks/activityQueryHooks";
@@ -7,13 +7,10 @@ import { activityObject } from "../../../types/activityType";
 
 export default function ActivityForm() {
 
-    let activity = null;
     const { id } = useParams();
     const navigate = useNavigate();
-    const { isUpdating, update, activities } = useActivities();
-    if (id) {
-        activity = activities?.find(e => e.id == id);
-    }
+    const { isUpdating, updateAsync, isCreating, createAsync, activity } = useActivities(id);
+
     const formActivity = activity ?? {
         id: "",
         category: "",
@@ -35,15 +32,14 @@ export default function ActivityForm() {
         const postActivity = activityObject.parse(Object.fromEntries(formData.entries()));
         postActivity.eventDate = postActivity.eventDate + "T00:00:00.000Z";
         if (postActivity.id) {
-            await update(postActivity);
+            await updateAsync(postActivity);
         }
         else {
-            // const createdActivity = await activityCreate(postActivity);
-            // postActivity.id = createdActivity!.id;
+            const createdActivity = await createAsync(postActivity);
+            postActivity.id = createdActivity!.id;
         }
         navigate(`/activity/${postActivity.id}`);
     }
-
 
     return (
         <Paper key={activity ? 'Update' : 'Create'}>
@@ -68,19 +64,19 @@ export default function ActivityForm() {
                         </MenuItem>)
                     }
                 </TextField>
-                <TextField type="checkbox" defaultValue={formActivity.isCancelled} sx={{ marginBottom: 1 }}
-                    name="isCancelled" id="isCancelled" label="Cancelled" />
+                <FormControlLabel sx={{ mb: 1 }} control={<Checkbox defaultChecked={activity?.isCancelled} />}
+                    label="Cancelled" name="isCancelled" id="isCancelled" />
                 <TextField sx={{ marginBottom: 1 }} required id='city' name='city' label="City" variant="outlined"
                     defaultValue={formActivity.city} />
                 <TextField sx={{ marginBottom: 1 }} required id='venue' name='venue' label="Venue" variant="outlined"
                     defaultValue={formActivity.venue} />
                 <TextField sx={{ marginBottom: 1 }} required id='latitude' name='latitude' label="Latitude" variant="outlined"
                     defaultValue={formActivity.latitude} />
-                <TextField sx={{ marginBottom: 1 }} required id='longitude' name='longitude' label="Logitude" variant="outlined"
+                <TextField sx={{ marginBottom: 1 }} required id='longitude' name='longitude' label="Longitude" variant="outlined"
                     defaultValue={formActivity.longitude} />
                 <Box sx={{ display: "flex", justifyContent: 'end', gap: 3 }}>
                     <Button component={Link} to='/activities' color="warning" variant="contained">Cancel</Button>
-                    <Button type="submit" loading={isUpdating} color="success" variant="contained">Submit</Button>
+                    <Button type="submit" loading={isUpdating || isCreating} color="success" variant="contained">Submit</Button>
                 </Box>
             </Box>
         </Paper>

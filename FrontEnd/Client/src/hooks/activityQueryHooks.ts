@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getAllActivities, getById, updateActivity } from "../library/activityApis";
+import { createActivity, getAllActivities, getById, updateActivity } from "../library/activityApis";
 import { useIsLoading } from "./appContextHooks";
 import type { Activity } from "../types/activityType";
 
@@ -38,7 +38,7 @@ export default function useActivities(id?: string) {
         staleTime: 5 * 1000 * 60
     });
 
-    const { mutate: update, isPending: isUpdating } = useMutation({
+    const { mutateAsync: updateAsync, isPending: isUpdating } = useMutation({
         mutationFn: async (data: Activity) => {
             setLoader(true);
             try {
@@ -54,5 +54,25 @@ export default function useActivities(id?: string) {
         }
     });
 
-    return { activities, isLoadingActivities, activity, isLoadingActivity, update, isUpdating };
+    const { mutateAsync: createAsync, isPending: isCreating } = useMutation({
+        mutationFn: async (data: Activity) => {
+            setLoader(true);
+            try {
+                return await createActivity(data);
+            }
+            finally {
+                setLoader(false);
+            }
+        },
+        onSuccess: () => {
+            queryClient.removeQueries({ queryKey: ["activities"] });
+        }
+    });
+
+    return {
+        activities, isLoadingActivities,
+        activity, isLoadingActivity,
+        updateAsync, isUpdating,
+        createAsync, isCreating
+    };
 }
