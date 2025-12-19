@@ -1,5 +1,7 @@
 
 using Application;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Persistence;
 using System.Reflection;
 
@@ -10,6 +12,10 @@ namespace Presentation
     /// </summary>
     public class Program
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -40,6 +46,26 @@ namespace Presentation
                 });
             });
 
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(jwtOptions =>
+            {
+                jwtOptions.Authority = builder.Configuration.GetSection("Jwt:issuer").Value;
+                jwtOptions.Audience = builder.Configuration.GetSection("Jwt:audience").Value;
+                if (builder.Configuration.GetSection("ASPNETCORE_ENVIRONMENT").Value == "Development")
+                {
+                    jwtOptions.RequireHttpsMetadata = false;
+                }
+            });
+            builder.Services.AddAuthorization(authorizationOptions =>
+            {
+                var defaultPolicy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+                authorizationOptions.DefaultPolicy = defaultPolicy;
+            });
             builder.Services.AddApplicationServices();
             builder.Services.AddPersistence(builder.Configuration);
 
@@ -58,7 +84,8 @@ namespace Presentation
             app.UseAuthorization();
 
 
-            app.MapControllers();
+            app.MapControllers()
+            .RequireAuthorization();
 
             app.Services.InitializePersistence();
 
