@@ -1,5 +1,6 @@
 ﻿
 
+using Application.Core;
 using Application.Dtos;
 using Application.Mapper.Activity;
 using Application.Services;
@@ -7,11 +8,11 @@ using MediatR;
 
 namespace Application.Queries.Activity
 {
-    public class GetAllActivityRequest : IRequest<IEnumerable<ActivityDto>>
+    public class GetAllActivityRequest : IRequest<Result<IEnumerable<ActivityDto>>>
     {
     }
 
-    public class GetAllActivityRequestHandler : IRequestHandler<GetAllActivityRequest, IEnumerable<ActivityDto>>
+    public class GetAllActivityRequestHandler : IRequestHandler<GetAllActivityRequest, Result<IEnumerable<ActivityDto>>>
     {
         private readonly IActivityReadService activityReadService;
         private readonly ActivityMapper activityMapper;
@@ -21,10 +22,10 @@ namespace Application.Queries.Activity
             this.activityReadService = activityReadService;
             this.activityMapper = activityMapper;
         }
-        public async Task<IEnumerable<ActivityDto>> Handle(GetAllActivityRequest request, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<ActivityDto>>> Handle(GetAllActivityRequest request, CancellationToken cancellationToken)
         {
             var result = await activityReadService.GetAllAsync(cancellationToken);
-            return activityMapper.MapToDto(result);
+            return Result<IEnumerable<ActivityDto>>.SetSuccess(activityMapper.MapToDto(result));
         }
     }
 }

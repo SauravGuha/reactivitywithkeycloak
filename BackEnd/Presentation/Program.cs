@@ -3,6 +3,7 @@ using Application;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Persistence;
+using Presentation.Middleware;
 using System.Reflection;
 
 namespace Presentation
@@ -66,6 +67,7 @@ namespace Presentation
                 .Build();
                 authorizationOptions.DefaultPolicy = defaultPolicy;
             });
+            builder.Services.AddMiddleWareService();
             builder.Services.AddApplicationServices();
             builder.Services.AddPersistence(builder.Configuration);
 
@@ -77,15 +79,15 @@ namespace Presentation
             }
 
             // Configure the HTTP request pipeline.
+            app.UseAppMiddleware();
             app.UseCors();
             if (!app.Environment.IsDevelopment())
                 app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
-
-            app.MapControllers()
-            .RequireAuthorization();
+            app.MapControllers().RequireAuthorization();
 
             app.Services.InitializePersistence();
 

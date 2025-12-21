@@ -1,5 +1,6 @@
 ﻿
 
+using Application.Core;
 using Application.Dtos;
 using Application.Mapper.Activity;
 using Application.Services;
@@ -7,12 +8,12 @@ using MediatR;
 
 namespace Application.Queries.Activity
 {
-    public class GetActivityRequest : IRequest<ActivityDto>
+    public class GetActivityRequest : IRequest<Result<ActivityDto>>
     {
         public required Guid Id { get; set; }
     }
 
-    public class GetActivityRequestHandler : IRequestHandler<GetActivityRequest, ActivityDto>
+    public class GetActivityRequestHandler : IRequestHandler<GetActivityRequest, Result<ActivityDto>>
     {
         private readonly IActivityReadService activityReadService;
         private readonly ActivityMapper activityMapper;
@@ -21,14 +22,14 @@ namespace Application.Queries.Activity
             this.activityReadService = activityReadService;
             this.activityMapper = activityMapper;
         }
-        public async Task<ActivityDto> Handle(GetActivityRequest request, CancellationToken cancellationToken)
+        public async Task<Result<ActivityDto>> Handle(GetActivityRequest request, CancellationToken cancellationToken)
         {
             var activity = await this.activityReadService.GetByIdAsync(request.Id, cancellationToken);
             if (activity == null)
             {
-                throw new ArgumentOutOfRangeException("Activity not found.");
+                return Result<ActivityDto>.SetFailure(404, "Acitivty not found");
             }
-            return this.activityMapper.MapToDto(activity);
+            return Result<ActivityDto>.SetSuccess(this.activityMapper.MapToDto(activity));
         }
     }
 }

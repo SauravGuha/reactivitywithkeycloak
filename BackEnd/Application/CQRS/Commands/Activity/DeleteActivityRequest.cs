@@ -1,10 +1,5 @@
 ﻿
-
-using Application.Dtos;
-using Application.Mapper.Activity;
-using Application.Queries.Activity;
 using Application.Repository;
-using Application.Services;
 using MediatR;
 
 namespace Application.Commands.Activity

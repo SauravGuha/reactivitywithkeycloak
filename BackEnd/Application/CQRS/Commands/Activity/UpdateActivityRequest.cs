@@ -1,5 +1,6 @@
 ﻿
 
+using Application.Core;
 using Application.Dtos;
 using Application.Mapper.Activity;
 using Application.Repository;
@@ -8,13 +9,13 @@ using MediatR;
 
 namespace Application.Commands.Activity
 {
-    public class UpdateActivityRequest :IRequest<ActivityDto>
+    public class UpdateActivityRequest : IRequest<Result<ActivityDto>>
     {
         public required Guid Id { get; set; }
         public required ActivityCommand ActivityCommand { get; set; }
     }
 
-    public class UpdateActivityRequestHandler : IRequestHandler<UpdateActivityRequest, ActivityDto>
+    public class UpdateActivityRequestHandler : IRequestHandler<UpdateActivityRequest, Result<ActivityDto>>
     {
         private readonly IActivityWriteRepository activityWriteRepository;
         private readonly IActivityReadService activityReadService;
@@ -28,18 +29,18 @@ namespace Application.Commands.Activity
             this.activityMapper = activityMapper;
         }
 
-        public async Task<ActivityDto> Handle(UpdateActivityRequest request, CancellationToken cancellationToken)
+        public async Task<Result<ActivityDto>> Handle(UpdateActivityRequest request, CancellationToken cancellationToken)
         {
             var activity = await this.activityReadService.GetByIdAsync(request.Id, cancellationToken);
             if (activity == null)
             {
-                throw new ArgumentOutOfRangeException("Activity not found.");
+                return Result<ActivityDto>.SetFailure(404, "Acitivty not found");
             }
             else
             {
                 activityMapper.UpdateActivityFromCommand(request.ActivityCommand, activity);
                 await this.activityWriteRepository.UpdateAsync(activity, cancellationToken);
-                return this.activityMapper.MapToDto(activity);
+                return Result<ActivityDto>.SetSuccess(this.activityMapper.MapToDto(activity));
             }
         }
     }
