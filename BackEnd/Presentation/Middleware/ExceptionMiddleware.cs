@@ -38,7 +38,7 @@ namespace Presentation.Middleware
                 var validationErrors = vex.Errors?.Select(e => (object)new { e.PropertyName, e.ErrorMessage });
                 context.Response.StatusCode = 400;
                 context.Response.ContentType = "application/json";
-                await context.Response.WriteAsJsonAsync(Result<object>.SetFailure(400, vex.Message, JsonSerializer.Serialize(validationErrors)));
+                await context.Response.WriteAsJsonAsync(Result<object>.SetFailure(400, vex.Message, validationErrors));
                 this.logger.LogError(vex.ToString());
             }
             catch (Exception ex)
