@@ -23,7 +23,7 @@ namespace Presentation.Controllers
         {
             var query = new GetAllActivityRequest();
             var result = await this.Mediator.Send(query, cancellationToken);
-            return Ok(result);
+            return this.ReturnResult(result);
         }
 
 
@@ -46,7 +46,7 @@ namespace Presentation.Controllers
             }
             var query = new GetActivityRequest { Id = id };
             var result = await this.Mediator.Send(query, cancellationToken);
-            return Ok(result);
+            return this.ReturnResult(result);
         }
 
 
@@ -68,7 +68,7 @@ namespace Presentation.Controllers
                 ActivityCommand = request
             };
             var result = await this.Mediator.Send(createActivityRequest, cancellationToken);
-            return Ok(result);
+            return this.ReturnResult(result);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Presentation.Controllers
                 ActivityCommand = request
             };
             var result = await this.Mediator.Send(updateActivityRequest, cancellationToken);
-            return Ok(result);
+            return this.ReturnResult(result);
         }
 
 

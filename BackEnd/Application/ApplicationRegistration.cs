@@ -7,7 +7,6 @@ using Application.Validators.Activities;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 
 namespace Application
 {
@@ -19,7 +18,7 @@ namespace Application
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));
             services.AddMapperServices();
 
-            services.AddFluentValidationAutoValidation();
+            //services.AddFluentValidationAutoValidation();
             services.AddScoped<IValidator<CreateActivityRequest>, CreateActivityValidator>();
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(Validation<,>));
 

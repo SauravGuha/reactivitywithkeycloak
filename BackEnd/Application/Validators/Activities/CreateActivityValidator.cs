@@ -19,9 +19,17 @@ namespace Application.Validators.Activities
                 .NotEmpty().WithMessage("City is required");
             RuleFor(r => r.ActivityCommand.Venue)
                 .NotEmpty().WithMessage("Venue is required");
-            RuleFor(r => (int)(r.ActivityCommand.EventDate - DateTime.MinValue).TotalDays)
-                .GreaterThanOrEqualTo((int)(DateTime.UtcNow - DateTime.MinValue).TotalDays)
-                .WithMessage("Event date cannot be less than or eqaul to today");
+            RuleFor(a => a.ActivityCommand.EventDate)
+            .Custom((dt, vc) =>
+            {
+                var eventDay = (int)(dt - DateTime.MinValue).TotalDays;
+                var currentDay = (int)(DateTime.UtcNow - DateTime.MinValue).TotalDays;
+
+                if (eventDay <= currentDay)
+                {
+                    vc.AddFailure("Event date cannot be less than or eqaul to today");
+                }
+            });
             RuleFor(r => r.ActivityCommand.Latitude)
                 .ExclusiveBetween(-1, 91)
                 .WithMessage("Invalid value for venue latitiude");
