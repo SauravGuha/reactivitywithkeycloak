@@ -15,11 +15,12 @@ namespace Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             var assembly = typeof(ApplicationRegistration).Assembly;
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));
+
             services.AddMapperServices();
 
-            //services.AddFluentValidationAutoValidation();
-            services.AddScoped<IValidator<CreateActivityRequest>, CreateActivityValidator>();
+            services.AddValidatorsFromAssembly(typeof(CreateActivityValidator).Assembly);
+
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(Validation<,>));
 
             return services;

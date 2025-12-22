@@ -15,3 +15,11 @@ export const activityObject = z.object({
 });
 
 export type Activity = z.infer<typeof activityObject>;
+
+export type ApiResponse<T> = {
+    isSuccess: boolean
+    value: T
+    errorCode: number
+    errorMessage?: string
+    errorDetails?: string
+}

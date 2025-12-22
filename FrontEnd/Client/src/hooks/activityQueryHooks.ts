@@ -20,6 +20,7 @@ export default function useActivities(id?: string) {
             }
         },
         enabled: id ? false : true,
+        retry: 1,
         staleTime: 5 * 1000 * 60
     });
 
