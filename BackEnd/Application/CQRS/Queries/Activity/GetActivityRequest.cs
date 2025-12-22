@@ -27,7 +27,7 @@ namespace Application.Queries.Activity
             var activity = await this.activityReadService.GetByIdAsync(request.Id, cancellationToken);
             if (activity == null)
             {
-                return Result<ActivityDto>.SetFailure(404, "Acitivty not found");
+                return Result<ActivityDto>.SetFailure(404, "Acitivty not found", null);
             }
             return Result<ActivityDto>.SetSuccess(this.activityMapper.MapToDto(activity));
         }

@@ -4,11 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class BaseController : ControllerBase
     {
         private IMediator? _mediator;
+        /// <summary>
+        /// 
+        /// </summary>
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetRequiredService<IMediator>();
 
         /// <summary>
@@ -30,6 +36,10 @@ namespace Presentation.Controllers
                 {
                     case 400:
                         return BadRequest(result);
+                    case 404:
+                        return NotFound(result);
+                    case 409:
+                        return Conflict(result);
                     default:
                         return UnprocessableEntity(result);
                 }

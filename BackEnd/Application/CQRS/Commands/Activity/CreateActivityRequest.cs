@@ -33,7 +33,7 @@ namespace Application.Commands.Activity
             var sameActivity = await activityReadService.GetAllAsync(query, cancellationToken);
             if (sameActivity.Any())
             {
-                return Result<ActivityDto>.SetFailure(409, "Cannot create activity");
+                return Result<ActivityDto>.SetFailure(409, "Cannot create duplicate activity", null);
             }
             else
             {
@@ -45,7 +45,7 @@ namespace Application.Commands.Activity
                 }
                 else
                 {
-                    throw new NullReferenceException("Unable to create activity");
+                    return Result<ActivityDto>.SetFailure(422, "Unable to create activity", "MapToActivity to returned null");
                 }
             }
         }

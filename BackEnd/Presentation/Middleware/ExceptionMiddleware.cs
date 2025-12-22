@@ -1,7 +1,6 @@
 
 
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using Application.Core;
 using FluentValidation;
 
@@ -13,6 +12,10 @@ namespace Presentation.Middleware
     public class ExceptionMiddleware : IMiddleware
     {
         private readonly ILogger<ExceptionMiddleware> logger;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logger"></param>
         public ExceptionMiddleware(ILogger<ExceptionMiddleware> logger)
         {
             this.logger = logger;
@@ -32,23 +35,17 @@ namespace Presentation.Middleware
             }
             catch (ValidationException vex)
             {
-                IEnumerable<object> errorMessage = new List<object> { new { App = vex.Message, vex.StackTrace } };
                 var validationErrors = vex.Errors?.Select(e => (object)new { e.PropertyName, e.ErrorMessage });
-                if (validationErrors != null)
-                {
-                    errorMessage = validationErrors;
-                }
                 context.Response.StatusCode = 400;
                 context.Response.ContentType = "application/json";
-                await context.Response.WriteAsJsonAsync(Result<object>.SetFailure(400, JsonSerializer.Serialize(errorMessage)));
+                await context.Response.WriteAsJsonAsync(Result<object>.SetFailure(400, vex.Message, JsonSerializer.Serialize(validationErrors)));
                 this.logger.LogError(vex.ToString());
             }
             catch (Exception ex)
             {
-                IEnumerable<object> errorMessage = new List<object> { new { App = ex.Message, ex.StackTrace } };
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";
-                await context.Response.WriteAsJsonAsync(Result<object>.SetFailure(400, JsonSerializer.Serialize(errorMessage)));
+                await context.Response.WriteAsJsonAsync(Result<object>.SetFailure(500, ex.Message, ex.StackTrace));
                 this.logger.LogError(ex.ToString());
             }
         }
