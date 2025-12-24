@@ -6,6 +6,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { keycloakClient } from '../../hooks/authenticationHook';
 
 export default function UserMenu() {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -18,8 +19,9 @@ export default function UserMenu() {
     };
 
     const onLogout = async () => {
-        // await logoutUser();
-        // navigate("/");
+        keycloakClient.logout({
+            redirectUri: window.location.origin
+        });
     }
 
     return (

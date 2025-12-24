@@ -1,6 +1,6 @@
 import { Group } from "@mui/icons-material";
 import { AppBar, Box, CircularProgress, Container, MenuItem, Toolbar, Typography } from "@mui/material";
-import { useIsLoading } from "../../hooks/appContextHooks";
+import { useIsAuthenticated, useIsLoading } from "../../hooks/appContextHooks";
 import { NavLink, useNavigate } from "react-router-dom";
 import UserMenu from "./UserMenu";
 
@@ -8,6 +8,7 @@ import UserMenu from "./UserMenu";
 export default function Navbar() {
     const { isLoading } = useIsLoading();
     const navigate = useNavigate();
+    const isAuthenticated = useIsAuthenticated();
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -28,34 +29,13 @@ export default function Navbar() {
                             <MenuItem sx={{ fontWeight: 'bold', textTransform: 'uppercase' }}>Contact</MenuItem>
                         </Box>
                         <MenuItem>
-                            <>
-                                <UserMenu />
+                            {isAuthenticated ? <UserMenu /> :
                                 <MenuItem component={NavLink} to='/login' sx={{
                                     '&.active': {
                                         color: 'yellow'
                                     }
                                 }}>Login</MenuItem>
-                                <MenuItem component={NavLink} to='/register' sx={{
-                                    '&.active': {
-                                        color: 'yellow'
-                                    }
-                                }}>Register</MenuItem>
-                            </>
-                            {/* {userData
-                                ? <UserMenu data={userData} />
-                                : <>
-                                    <MenuItem component={NavLink} to='/login' sx={{
-                                        '&.active': {
-                                            color: 'yellow'
-                                        }
-                                    }}>Login</MenuItem>
-                                    <MenuItem component={NavLink} to='/register' sx={{
-                                        '&.active': {
-                                            color: 'yellow'
-                                        }
-                                    }}>Register</MenuItem>
-                                </>
-                            } */}
+                            }
                         </MenuItem>
                     </Toolbar>
                 </Container>

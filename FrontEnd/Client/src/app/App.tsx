@@ -1,5 +1,4 @@
 import { Box, Container, CssBaseline } from "@mui/material"
-import Navbar from "./layout/Navbar"
 import { useState } from "react"
 import { LoadingContext } from "../hooks/appContextHooks";
 import { Outlet, useLocation } from "react-router-dom";
@@ -17,7 +16,6 @@ function App() {
       {pathname == '/'
         ? <Home />
         : <LoadingContext.Provider value={{ isLoading, setLoader: (value: boolean) => setIsLoading(value) }}>
-          <Navbar />
           <Container maxWidth={false} sx={{ marginTop: 9 }}>
             <Outlet />
           </Container>

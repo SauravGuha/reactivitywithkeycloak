@@ -12,4 +12,16 @@ function useIsLoading() {
     }
 }
 
-export { LoadingContext, useIsLoading }
+const IsAuthenticated = createContext<boolean>(false);
+
+function useIsAuthenticated() {
+    const lc = useContext(IsAuthenticated);
+    if (lc) {
+        return lc;
+    }
+    else {
+        return false;
+    }
+}
+
+export { LoadingContext, useIsLoading, IsAuthenticated, useIsAuthenticated }

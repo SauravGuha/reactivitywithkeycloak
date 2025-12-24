@@ -3,6 +3,7 @@ import axios from "axios";
 import type { Activity, ApiResponse } from "../types/activityType";
 import { toast } from "react-toastify";
 import { appRouter } from "../app/AppRouter";
+import { keycloakClient } from "../hooks/authenticationHook";
 
 const baseUrl = import.meta.env.VITE_BASEURL
 
@@ -20,6 +21,7 @@ function delayer() {
 
 instance.interceptors.request.use(async value => {
     await delayer();
+    value.headers.Authorization = `Bearer ${keycloakClient.token}`;
     return value;
 });
 

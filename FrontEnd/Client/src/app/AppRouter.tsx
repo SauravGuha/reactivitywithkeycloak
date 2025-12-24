@@ -4,7 +4,7 @@ import DashBoard from "../features/activity/dashboard/DashBoard";
 import ActivityDetailsPage from "../features/activity/details/ActivityDetailsPage";
 import ActivityForm from "../features/activity/form/ActivityForm";
 import NotFound from "../features/error/NotFound";
-
+import RequireAuthentication from "./RequireAuthentication";
 
 export const appRouter = createBrowserRouter([
     {
@@ -12,16 +12,21 @@ export const appRouter = createBrowserRouter([
         element: <App />,
         children: [
             {
-                path: '/activities',
-                element: <DashBoard />
-            },
-            {
-                path: '/activity/:id',
-                element: <ActivityDetailsPage />
-            },
-            {
-                path: '/manage/:id',
-                element: <ActivityForm />
+                element: <RequireAuthentication />,
+                children: [
+                    {
+                        path: '/activities',
+                        element: <DashBoard />
+                    },
+                    {
+                        path: '/activity/:id',
+                        element: <ActivityDetailsPage />
+                    },
+                    {
+                        path: '/manage/:id',
+                        element: <ActivityForm />
+                    },
+                ]
             },
             {
                 path: '/not-found',
