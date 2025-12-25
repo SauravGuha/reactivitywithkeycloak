@@ -1,4 +1,4 @@
-﻿using Application.Dtos;
+﻿
 
 namespace Application.Services.Base
 {
@@ -6,6 +6,5 @@ namespace Application.Services.Base
     {
         Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
         Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken);
-        Task<IEnumerable<T>> GetAllAsync(ActivityQuery activityQuery, CancellationToken cancellationToken);
     }
 }

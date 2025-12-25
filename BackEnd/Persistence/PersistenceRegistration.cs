@@ -16,16 +16,20 @@ namespace Persistence
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             // Register your persistence services here    
-            services.AddDbContext<ReactivityDbContext>(options => {
+            services.AddDbContext<ReactivityDbContext>(options =>
+            {
                 options.UseSqlServer(configuration.GetConnectionString("Persistence"));
             });
             services.AddScoped<IActivityWriteRepository, ActivityRepository>();
             services.AddScoped<IActivityReadService, ActivityReadService>();
+            services.AddScoped<IUserWriteRepository, UserRepository>();
+            services.AddScoped<IUserReadService, UserReadService>();
             return services;
         }
 
-        public static void InitializePersistence(this IServiceProvider serviceProvider) {
-            DatabaseInitializer.InitializeDatabase(serviceProvider);    
+        public static void InitializePersistence(this IServiceProvider serviceProvider)
+        {
+            DatabaseInitializer.InitializeDatabase(serviceProvider);
         }
     }
 }

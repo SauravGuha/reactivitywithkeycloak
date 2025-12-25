@@ -16,10 +16,6 @@ namespace Persistence.EntityConfiguration
             builder.Property<DateTime>("UpdatedAt")
                 .HasDefaultValueSql("GETUTCDATE()")
                 .IsRequired();
-            builder.Property<string?>("CreatedBy")
-                .HasMaxLength(300);
-            builder.Property<string?>("UpdatedBy")
-                .HasMaxLength(300);
         }
     }
 }

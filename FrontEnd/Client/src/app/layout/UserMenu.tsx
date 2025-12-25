@@ -7,8 +7,10 @@ import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { keycloakClient } from '../../hooks/authenticationHook';
+import useUsers from '../../hooks/userQueryHook';
 
 export default function UserMenu() {
+    const { userInfo, isFetchingUserInfo } = useUsers();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -24,6 +26,8 @@ export default function UserMenu() {
         });
     }
 
+    if (isFetchingUserInfo) return <></>;
+
     return (
         <>
             <Button
@@ -37,7 +41,7 @@ export default function UserMenu() {
                         key="userData!.id"
                         alt="userData!.displayName"
                         src="userData!.imageUrl" />
-                    data.displayName
+                    {userInfo?.displayName}
                 </Box>
 
             </Button>

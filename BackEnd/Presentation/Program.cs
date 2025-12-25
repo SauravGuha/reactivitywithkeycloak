@@ -85,6 +85,7 @@ namespace Presentation
                 app.UseHttpsRedirection();
 
             app.UseAuthentication();
+            app.UseMiddleware<UserRegistrationMiddleware>();
             app.UseAuthorization();
 
             app.MapControllers().RequireAuthorization();

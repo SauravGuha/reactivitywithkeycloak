@@ -35,7 +35,7 @@ export default function useActivities(id?: string) {
                 setLoader(false);
             }
         },
-        enabled: id ? true : false,
+        enabled: id == undefined ? false : true,
         staleTime: 5 * 1000 * 60
     });
 

@@ -10,6 +10,7 @@ namespace Application.Mapper
         public static IServiceCollection AddMapperServices(this IServiceCollection services)
         {
             services.AddScoped<ActivityMapper>();
+            services.AddScoped<UserMapper>();
             return services;
         }
     }

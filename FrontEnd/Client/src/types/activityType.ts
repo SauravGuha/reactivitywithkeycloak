@@ -16,6 +16,12 @@ export const activityObject = z.object({
 
 export type Activity = z.infer<typeof activityObject>;
 
+export type UserInfo = {
+    keycloakUserId: string
+    displayName: string,
+    email: string
+}
+
 export type ApiResponse<T> = {
     isSuccess: boolean
     value: T

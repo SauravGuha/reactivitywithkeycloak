@@ -1,6 +1,4 @@
 ﻿
-
-using Application.Commands.Activity;
 using Application.Mapper;
 using Application.Validators;
 using Application.Validators.Activities;

@@ -26,6 +26,10 @@ export const appRouter = createBrowserRouter([
                         path: '/manage/:id',
                         element: <ActivityForm />
                     },
+                    {
+                        path: "/createactivity",
+                        element: <ActivityForm />
+                    }
                 ]
             },
             {
