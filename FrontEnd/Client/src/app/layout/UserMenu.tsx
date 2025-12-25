@@ -38,8 +38,8 @@ export default function UserMenu() {
             >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <Avatar
-                        key="userData!.id"
-                        alt="userData!.displayName"
+                        key={userInfo?.keycloakUserId}
+                        alt={userInfo?.displayName}
                         src="userData!.imageUrl" />
                     {userInfo?.displayName}
                 </Box>
