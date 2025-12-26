@@ -8,8 +8,8 @@ namespace Application.Mapper.Activity
     [Mapper]
     public partial class UserMapper
     {
-        public partial UserDto MapToDto(Domain.Models.User user);
+        public partial UserDto MapToUserDto(Domain.Models.User user);
 
-        public partial Domain.Models.User MapToDto(UserDto userDto);
+        public partial Domain.Models.User MapToUser(UserDto userDto);
     }
 }

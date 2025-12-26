@@ -7,6 +7,6 @@ namespace Application.Services
 {
     public interface IActivityReadService : IReadService<Domain.Models.Activity>
     {
-        Task<IEnumerable<Domain.Models.Activity>> GetAllAsync(ActivityQuery activityQuery, CancellationToken cancellationToken);
+        Task<IEnumerable<Domain.Models.Activity>> GetAllAsync(ActivityQuery activityQuery, CancellationToken cancellationToken, params string[] navigationProps);
     }
 }

@@ -18,5 +18,11 @@ namespace Application.Dtos
         public required long Longitude { get; set; }
 
         public required bool IsCancelled { get; set; }
+
+        public string? HostDisplayName { get; set; }
+
+        public string? HostId { get; set; }
+
+        public IEnumerable<UserDto> Attendees { get; set; } = [];
     }
 }

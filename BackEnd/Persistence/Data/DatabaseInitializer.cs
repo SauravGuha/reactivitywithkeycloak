@@ -1,12 +1,14 @@
 ﻿
 
+using System.Threading.Tasks;
+using Domain.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Persistence.Data
 {
     public static class DatabaseInitializer
     {
-        public static void InitializeDatabase(IServiceProvider serviceProvider)
+        public static async Task InitializeDatabase(IServiceProvider serviceProvider)
         {
             using (var scope = serviceProvider.CreateScope())
             {
@@ -42,6 +44,7 @@ namespace Persistence.Data
                     },
                     new Domain.Models.Activity
                     {
+                        Id=Guid.Parse("A3AB383B-B3C0-4D0F-A2E3-45E74009D87E"),
                         Title = "Future Activity 1",
                         Description = "Activity 1 month in future",
                         Category = "travel",
@@ -128,7 +131,28 @@ namespace Persistence.Data
 
                     context.SaveChanges();
                 }
-            }            
+                if (!context.Attendees.Any())
+                {
+                    context.Attendees.AddRange(new[]
+                    {
+                            new Attendee
+                            {
+                                UserId = Guid.Parse("30F2E7F2-B511-4B4A-2A2C-08DE438D349C"),
+                                ActivityId = Guid.Parse("A3AB383B-B3C0-4D0F-A2E3-45E74009D87E"),
+                                IsHost = true,
+                                DateJoined = DateTime.UtcNow
+                            },
+                            new Attendee
+                            {
+                                UserId = Guid.Parse("30F2E7F2-B511-4B4A-2A2C-08DE438D349C"),
+                                ActivityId = Guid.Parse("07B51E09-EA31-46B2-A9D8-31D729F221E1"),
+                                IsHost = false,
+                                DateJoined = DateTime.UtcNow
+                            }
+                    });
+                    await context.SaveChangesAsync();
+                }
+            }
         }
     }
 }

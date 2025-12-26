@@ -29,7 +29,7 @@ namespace Application.Queries.Activity
             {
                 return Result<ActivityDto>.SetFailure(404, "Acitivty not found", null);
             }
-            return Result<ActivityDto>.SetSuccess(this.activityMapper.MapToDto(activity));
+            return Result<ActivityDto>.SetSuccess(this.activityMapper.MapToActivityDto(activity));
         }
     }
 }

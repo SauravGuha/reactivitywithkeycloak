@@ -27,7 +27,7 @@ namespace Application.CQRS.Queries.User
             var user = await userReadService.GetAllAsync(request.UserDto, cancellationToken);
             if (user.Any())
             {
-                return Result<UserDto>.SetSuccess(userMapper.MapToDto(user.FirstOrDefault()!));
+                return Result<UserDto>.SetSuccess(userMapper.MapToUserDto(user.FirstOrDefault()!));
             }
             else
             {

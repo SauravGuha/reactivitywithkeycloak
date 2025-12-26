@@ -37,9 +37,9 @@ namespace Application.Commands.Activity
             }
             else
             {
-                var user = userMapper.MapToDto(request.UserCommand);
+                var user = userMapper.MapToUser(request.UserCommand);
                 await this.userWriteRepository.CreateAsync(user, cancellationToken);
-                return Result<UserDto>.SetSuccess(this.userMapper.MapToDto(user));
+                return Result<UserDto>.SetSuccess(this.userMapper.MapToUserDto(user));
             }
         }
     }

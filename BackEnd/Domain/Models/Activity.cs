@@ -16,5 +16,7 @@ namespace Domain.Models
         public required long Longitude { get; set; }
 
         public required bool IsCancelled { get; set; }
+
+        public virtual ICollection<Attendee> Attendees { get; set; } = [];
     }
 }

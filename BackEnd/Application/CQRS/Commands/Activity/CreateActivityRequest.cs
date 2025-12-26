@@ -41,7 +41,7 @@ namespace Application.Commands.Activity
                 if (activity != null)
                 {
                     await this.activityWriteRepository.CreateAsync(activity, cancellationToken);
-                    return Result<ActivityDto>.SetSuccess(this.activityMapper.MapToDto(activity));
+                    return Result<ActivityDto>.SetSuccess(this.activityMapper.MapToActivityDto(activity));
                 }
                 else
                 {

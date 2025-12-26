@@ -10,6 +10,7 @@ namespace Application.Queries.Activity
 {
     public class GetAllActivityRequest : IRequest<Result<IEnumerable<ActivityDto>>>
     {
+        public ActivityQuery? ActivityQuery { get; set; }
     }
 
     public class GetAllActivityRequestHandler : IRequestHandler<GetAllActivityRequest, Result<IEnumerable<ActivityDto>>>
@@ -24,8 +25,9 @@ namespace Application.Queries.Activity
         }
         public async Task<Result<IEnumerable<ActivityDto>>> Handle(GetAllActivityRequest request, CancellationToken cancellationToken)
         {
-            var result = await activityReadService.GetAllAsync(cancellationToken);
-            return Result<IEnumerable<ActivityDto>>.SetSuccess(activityMapper.MapToDto(result));
+            var result = await activityReadService.GetAllAsync(request.ActivityQuery, cancellationToken,
+            nameof(Domain.Models.Activity.Attendees));
+            return Result<IEnumerable<ActivityDto>>.SetSuccess(activityMapper.MapToListOfActivityDto(result));
         }
     }
 }

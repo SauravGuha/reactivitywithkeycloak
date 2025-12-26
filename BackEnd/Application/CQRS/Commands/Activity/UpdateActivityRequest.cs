@@ -40,7 +40,7 @@ namespace Application.Commands.Activity
             {
                 activityMapper.UpdateActivityFromCommand(request.ActivityCommand, activity);
                 await this.activityWriteRepository.UpdateAsync(activity, cancellationToken);
-                return Result<ActivityDto>.SetSuccess(this.activityMapper.MapToDto(activity));
+                return Result<ActivityDto>.SetSuccess(this.activityMapper.MapToActivityDto(activity));
             }
         }
     }
